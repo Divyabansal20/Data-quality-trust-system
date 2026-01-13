@@ -9,7 +9,7 @@ uploaded_file= st.file_uploader("Choose a CSV or Excel file",type=['csv','xlsx']
 
 if uploaded_file is not None:
     df,error= load_dataset(uploaded_file)
-
+    
     if error:
         st.error(f"Error loading the file: {error}")
     else:
@@ -19,7 +19,14 @@ if uploaded_file is not None:
     completeness_result= completeness_check(df)
     duplicates_Result= duplicate_check(df)
     trustScore= calculate_trust_score(completeness_result,duplicates_Result)
+
+    st.divider()
     st.metric(label="Overall Trust Score",value=f"{trustScore}%")
-    st.subheader("🛠️ Auditor Diagnostics")
-    st.write(completeness_result)
-    st.write(duplicates_Result)
+
+    col1, col2= st.columns(2)
+    with col1:
+        st.subheader("Completeness")
+        st.write(completeness_result)
+    with col2:
+        st.subheader("Uniqueness")
+        st.write(duplicates_Result)
