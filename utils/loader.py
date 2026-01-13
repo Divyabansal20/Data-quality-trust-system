@@ -3,10 +3,10 @@ import os
 
 def load_dataset(filepath):
     try:
-        extension= os.path.splitext(filepath)[1].lower()
-        if extension=='csv':
+        extension= os.path.splitext(filepath.name)[1].lower()
+        if extension=='.csv':
             df= pd.read_csv(filepath)
-        elif extension in ['xls','xlsx']:
+        elif extension in ['.xls','.xlsx']:
             df= pd.read_excel(filepath)
         else:
             return None, "Unsuppoted file format. Must be either excel or csv"
