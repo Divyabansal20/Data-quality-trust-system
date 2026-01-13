@@ -17,9 +17,9 @@ def calculate_trust_score(completeness_results,duplicate_results):
 
     # file penalties on duplicates
     if duplicate_results["status"]=="Warning":
-        file_penalty = 25
-    elif duplicate_results["status"] == "Critical":
         file_penalty = 10
+    elif duplicate_results["status"] == "Critical":
+        file_penalty = 25
 
 
     total_damage= average_penalty+ file_penalty

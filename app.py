@@ -1,4 +1,5 @@
 import streamlit as st
+import pandas as pd
 from engine.auditor import completeness_check, duplicate_check
 from engine.scorer import calculate_trust_score
 from utils.loader import load_dataset
@@ -26,7 +27,9 @@ if uploaded_file is not None:
     col1, col2= st.columns(2)
     with col1:
         st.subheader("Completeness")
-        st.write(completeness_result)
+        completeness_df= pd.DataFrame(completeness_result).T
+        st.table(completeness_df)
     with col2:
         st.subheader("Uniqueness")
-        st.write(duplicates_Result)
+        st.write(f"Duplicate status: **{duplicates_Result['status']}**")
+        st.write(f"Duplicates found: {duplicates_Result['duplicate count']}")
