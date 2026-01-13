@@ -42,3 +42,22 @@ def duplicate_check(df):
         "duplicate percentage": dup_perc,
         "status": status
     }
+
+
+def validity_check(df):
+    validity_results={}
+    for col in df.columns:
+        total_vals=len(df[col])
+        numeric_count= pd.to_numeric(df[col],errors="coerce").nonnull().sum()
+
+        numeric_ratio= numeric_count/total_vals
+        status= "Excellent"
+        if(0.5< numeric_ratio<0.99):
+            status="Critical"
+        elif 0.99<=numeric_ratio <1:
+            status="Warning"
+        validity_results[col]={
+            "numeric ratio": f"{round(numeric_ratio*100,2)}%" ,
+            "status": status
+        }
+    return validity_results

@@ -28,7 +28,7 @@ if uploaded_file is not None:
     with col1:
         st.subheader("Completeness")
         completeness_df= pd.DataFrame(completeness_result).T
-        st.table(completeness_df)
+        st.dataframe(completeness_df, use_container_width=True)
     with col2:
         st.subheader("Uniqueness")
         st.write(f"Duplicate status: **{duplicates_Result['status']}**")
