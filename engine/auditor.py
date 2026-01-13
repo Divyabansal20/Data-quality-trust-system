@@ -23,4 +23,4 @@ def completeness_check(df):
             "missing percentage":round(percentage,2),
             "status":status
         }
-        return audit_results
+    return audit_results
