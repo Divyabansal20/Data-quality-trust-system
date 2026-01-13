@@ -1,5 +1,5 @@
 import streamlit as st
-from engine.auditor import completeness_check
+from engine.auditor import completeness_check, duplicate_check
 from engine.scorer import calculate_trust_score
 from utils.loader import load_dataset
 
@@ -16,8 +16,10 @@ if uploaded_file is not None:
         st.success("File loaded successfully!")
         
     
-    results= completeness_check(df)
-    trustScore= calculate_trust_score(results)
+    completeness_result= completeness_check(df)
+    duplicates_Result= duplicate_check(df)
+    trustScore= calculate_trust_score(completeness_result,duplicates_Result)
     st.metric(label="Overall Trust Score",value=f"{trustScore}%")
     st.subheader("🛠️ Auditor Diagnostics")
-    st.write(results)
+    st.write(completeness_result)
+    st.write(duplicates_Result)

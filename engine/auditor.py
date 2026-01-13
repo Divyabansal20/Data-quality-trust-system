@@ -1,13 +1,13 @@
 import pandas as pd
 
 def completeness_check(df):
-    audit_results={}
+    completeness_results={}
     
     missing_vals= df.isnull().sum()
     total_rows= len(df)
 
     for column in df.columns:
-        count= missing_vals[column]
+        count= int(missing_vals[column])
         percentage= (count/total_rows)*100
 
         if percentage==0:
@@ -18,9 +18,27 @@ def completeness_check(df):
             status="Warning"
         else:
             status="Critical"
-        audit_results[column]={
-            "missing columns": count,
+        completeness_results[column]={
+            "missing values": count,
             "missing percentage":round(percentage,2),
             "status":status
         }
-    return audit_results
+    return completeness_results
+
+def duplicate_check(df):
+    # duplicate_results={}
+    total_duplicates= int(df.duplicated().sum())
+    total_rows= len(df)
+    dup_perc= (total_duplicates/total_rows)*100
+
+    if dup_perc==0:
+        status="Excellent"
+    elif  dup_perc<5:
+        status="Warning"
+    else:
+        status="Critical"
+    return {
+        "duplicate count":total_duplicates,
+        "duplicate percentage": dup_perc,
+        "status": status
+    }
