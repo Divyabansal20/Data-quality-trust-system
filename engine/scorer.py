@@ -1,5 +1,5 @@
 
-def calculate_trust_score(completeness_results,duplicate_results):
+def calculate_trust_score(completeness_results,duplicate_results,validity_results):
 
     if not completeness_results:
         return 0
@@ -21,8 +21,19 @@ def calculate_trust_score(completeness_results,duplicate_results):
     elif duplicate_results["status"] == "Critical":
         file_penalty = 25
 
+    # validity penalty 
+    validity_penalty = 0
+    for col, metrics in validity_results.items(): 
+        if metrics["status"] == "Critical":
+            validity_penalty += 20  
+        elif metrics["status"] == "Warning":
+            validity_penalty += 5
 
-    total_damage= average_penalty+ file_penalty
+    avg_validity_penalty = validity_penalty / total_cols
+
+    total_damage = average_penalty + file_penalty + avg_validity_penalty
+
     # final score
     final_score = max(0, 100 - total_damage)
+    
     return round(final_score, 1)

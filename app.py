@@ -1,8 +1,9 @@
 import streamlit as st
 import pandas as pd
-from engine.auditor import completeness_check, duplicate_check
+from engine.auditor import completeness_check, duplicate_check, validity_check
 from engine.scorer import calculate_trust_score
 from utils.loader import load_dataset
+
 
 st.title("Data Trust Scoring System")
 st.write("Upload a dataset to evaluate its analytical readiness")
@@ -19,7 +20,8 @@ if uploaded_file is not None:
     
     completeness_result= completeness_check(df)
     duplicates_Result= duplicate_check(df)
-    trustScore= calculate_trust_score(completeness_result,duplicates_Result)
+    validity_results = validity_check(df)
+    trustScore= calculate_trust_score(completeness_result,duplicates_Result,validity_results)
 
     st.divider()
     st.metric(label="Overall Trust Score",value=f"{trustScore}%")
@@ -33,3 +35,8 @@ if uploaded_file is not None:
         st.subheader("Uniqueness")
         st.write(f"Duplicate status: **{duplicates_Result['status']}**")
         st.write(f"Duplicates found: {duplicates_Result['duplicate count']}")
+        
+    st.divider()
+    st.subheader("📍 Validity Report")
+    validity_df = pd.DataFrame(validity_results).T
+    st.dataframe(validity_df, use_container_width=True)
