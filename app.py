@@ -44,5 +44,5 @@ if uploaded_file is not None:
         st.dataframe(validity_df, use_container_width=True)    
     with col2:
         st.subheader("Accuracy ")
-        validity_df= pd.DataFrame(validity_results).T
-        st.dataframe(validity_df, use_container_width=True)  
+        accuracy_df= pd.DataFrame(accuracy_results).T
+        st.dataframe(accuracy_df, use_container_width=True)  

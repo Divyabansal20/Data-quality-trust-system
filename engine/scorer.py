@@ -39,9 +39,13 @@ def calculate_trust_score(completeness_results,duplicate_results,validity_result
             accuracy_penalty += 20  
         elif metrics["status"] == "Warning":
             accuracy_penalty += 5
+    if len(accuracy_results)>0:
+        average_accuracy_penalty= accuracy_penalty/len(accuracy_results)
+    else:
+        average_accuracy_penalty=0
 
 
-    total_damage = average_penalty + file_penalty + avg_validity_penalty + accuracy_penalty
+    total_damage = average_penalty + file_penalty + avg_validity_penalty + average_accuracy_penalty
 
     # final score
     final_score = max(0, 100 - total_damage)
