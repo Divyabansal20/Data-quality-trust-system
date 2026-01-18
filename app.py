@@ -1,8 +1,9 @@
 import streamlit as st
 import pandas as pd
-from engine.auditor import completeness_check, duplicate_check, validity_check, audit_accuracy
+from engine.auditor import completeness_check, duplicate_check, validity_check, audit_accuracy, audit_consistency
 from engine.scorer import calculate_trust_score
 from utils.loader import load_dataset
+from engine.reporter import generate_pdf
 
 
 st.title("Data Trust Scoring System")
@@ -22,10 +23,22 @@ if uploaded_file is not None:
     duplicates_Result= duplicate_check(df)
     validity_results = validity_check(df)
     accuracy_results= audit_accuracy(df)
-    trustScore= calculate_trust_score(completeness_result,duplicates_Result,validity_results, accuracy_results)
+    consistency_results= audit_consistency(df)
+    trustScore= calculate_trust_score(completeness_result,duplicates_Result,validity_results, accuracy_results, consistency_results)
 
     st.divider()
     st.metric(label="Overall Trust Score",value=f"{trustScore}%")
+
+    
+    pdf_bytes = generate_pdf(trustScore, completeness_result, duplicates_Result, 
+                            validity_results, accuracy_results, consistency_results)
+
+    st.download_button(
+        label="📥 Download Full Audit Report (PDF)",
+        data=pdf_bytes,
+        file_name="Data_Trust_Report.pdf",
+        mime="application/pdf"
+    )
 
     col1, col2= st.columns(2)
     with col1:
@@ -46,3 +59,9 @@ if uploaded_file is not None:
         st.subheader("Accuracy ")
         accuracy_df= pd.DataFrame(accuracy_results).T
         st.dataframe(accuracy_df, use_container_width=True)  
+    
+    st.subheader("Consistency")
+    consistency_df= pd.DataFrame(consistency_results)
+    st.dataframe(consistency_df, use_container_width=True)
+
+

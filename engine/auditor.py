@@ -13,8 +13,8 @@ def completeness_check(df):
 
         if percentage==0:
             status="Excellent"
-        elif percentage<5:
-            status="Good"
+        # elif percentage<5:
+        #     status="Good"
         elif percentage<20:
             status="Warning"
         else:
@@ -92,3 +92,32 @@ def audit_accuracy(df):
             "status": status
         }
     return accuracy_results
+
+def audit_consistency(df):
+    consistency_results = []
+    cols = df.columns
+    
+    for i in range(len(cols)):
+        for j in range(i + 1, len(cols)):
+            col_a, col_b = cols[i], cols[j]
+            a_uniqueness = df[col_a].nunique() / len(df)
+            
+            if a_uniqueness > 0.5:
+                mismatches = df.groupby(col_a)[col_b].nunique()
+                violations = mismatches[mismatches > 1]
+                
+                if not violations.empty:
+                    violation_ratio = len(violations) / df[col_a].nunique()
+            
+                    status = "Critical" if violation_ratio > 0.1 else "Warning"
+            
+                    consistency_results.append({
+                        "rule": f"{col_a} -> {col_b}",
+                        "issue": f"{len(violations)} groups in '{col_a}' have conflicting values in '{col_b}'.",
+                        "status": status
+                    })
+    
+    if not consistency_results:
+        consistency_results.append({"rule": "Logical Integrity", "issue": "No pattern breaches found.", "status": "Excellent"})
+        
+    return consistency_results
