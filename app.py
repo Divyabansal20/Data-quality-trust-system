@@ -34,7 +34,7 @@ if uploaded_file is not None:
                             validity_results, accuracy_results, consistency_results)
 
     st.download_button(
-        label="📥 Download Full Audit Report (PDF)",
+        label="Download Audit Report",
         data=pdf_bytes,
         file_name="Data_Trust_Report.pdf",
         mime="application/pdf"
@@ -42,25 +42,25 @@ if uploaded_file is not None:
 
     col1, col2= st.columns(2)
     with col1:
-        st.subheader("Completeness")
+        st.subheader("Completeness Check")
         completeness_df= pd.DataFrame(completeness_result).T
         st.dataframe(completeness_df, use_container_width=True)
     with col2:
-        st.subheader("Uniqueness")
+        st.subheader("Uniqueness Check")
         st.write(f"Duplicate status: **{duplicates_Result['status']}**")
         st.write(f"Duplicates found: {duplicates_Result['duplicate count']}")
         
     col1, col2= st.columns(2)
     with col1:
-        st.subheader("Validity Report")
+        st.subheader("Validity Check")
         validity_df= pd.DataFrame(validity_results).T
         st.dataframe(validity_df, use_container_width=True)    
     with col2:
-        st.subheader("Accuracy ")
+        st.subheader("Accuracy Check")
         accuracy_df= pd.DataFrame(accuracy_results).T
         st.dataframe(accuracy_df, use_container_width=True)  
     
-    st.subheader("Consistency")
+    st.subheader("Consistency Check")
     consistency_df= pd.DataFrame(consistency_results)
     st.dataframe(consistency_df, use_container_width=True)
 

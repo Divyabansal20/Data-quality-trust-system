@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 
+# 1. completeness check
 def completeness_check(df):
     completeness_results={}
     
@@ -10,11 +11,8 @@ def completeness_check(df):
     for column in df.columns:
         count= int(missing_vals[column])
         percentage= (count/total_rows)*100
-
         if percentage==0:
             status="Excellent"
-        # elif percentage<5:
-        #     status="Good"
         elif percentage<20:
             status="Warning"
         else:
@@ -26,8 +24,10 @@ def completeness_check(df):
         }
     return completeness_results
 
+# 2. Duplicates check
+
+
 def duplicate_check(df):
-    # duplicate_results={}
     total_duplicates= int(df.duplicated().sum())
     total_rows= len(df)
     dup_perc= (total_duplicates/total_rows)*100
@@ -43,6 +43,8 @@ def duplicate_check(df):
         "duplicate percentage": dup_perc,
         "status": status
     }
+
+# 3. Validity check
 
 
 def validity_check(df):
@@ -62,6 +64,9 @@ def validity_check(df):
             "status": status
         }
     return validity_results
+
+
+# 4. Accuracy check
 
 
 def audit_accuracy(df):
@@ -92,6 +97,10 @@ def audit_accuracy(df):
             "status": status
         }
     return accuracy_results
+
+
+# 5. Consistency check
+
 
 def audit_consistency(df):
     consistency_results = []
