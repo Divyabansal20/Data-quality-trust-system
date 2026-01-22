@@ -20,11 +20,10 @@ st.set_page_config(
 
 st.title("Data Trust Scoring System")
 st.markdown("""
-Evaluate the **analytical readiness** of your datasets using an enterprise-grade weighted scoring engine. 
+Evaluate the **analytical readiness** of your datasets using a weighted scoring engine. 
 This tool audits dimensions including Completeness, Validity, Accuracy, Consistency, and Uniqueness.
 """)
 
-# 3. Sidebar - Methodology Explanation (Great for Interviews!)
 with st.sidebar:
     st.header("Scoring Methodology")
     st.info("""
@@ -41,7 +40,6 @@ with st.sidebar:
     st.warning("70-89: Medium Risk")
     st.error("<70: High Risk")
 
-# File Upload 
 uploaded_file = st.file_uploader("Upload a CSV or Excel file (Max 200MB)", type=['csv', 'xlsx'])
 
 if uploaded_file is not None:
@@ -62,7 +60,6 @@ if uploaded_file is not None:
                 comp_res, dupe_res, val_res, acc_res, cons_res
             )
 
-        # 6. Executive Summary Dashboard
         st.divider()
         m1, m2, m3 = st.columns([1, 1, 2])
         
@@ -85,7 +82,6 @@ if uploaded_file is not None:
             st.write(f"**Shape:** {dataset_profile['rows']} rows × {dataset_profile['cols']} columns")
             st.caption(action_text)
 
-        # 7. PDF Report Generation & Download
         pdf_bytes = generate_pdf(
             trustScore, comp_res, dupe_res, val_res, 
             acc_res, cons_res, dataset_profile, uploaded_file.name

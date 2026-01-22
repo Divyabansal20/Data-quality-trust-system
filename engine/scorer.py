@@ -21,17 +21,14 @@ def calculate_trust_score(completeness_results, duplicate_results, validity_resu
         total_penalty = sum(penalty_map.get(item['status'], 0) for item in items)
         return max(0, 100 - (total_penalty / len(items)))
 
-    # 3. Calculate health for each dimension
     comp_health = get_health(completeness_results)
     valid_health = get_health(validity_results)
     acc_health = get_health(accuracy_results)
     consist_health = get_health(consistency_results)
     
-    # Uniqueness is a single dictionary, handled separately
     dupe_penalty = penalty_map.get(duplicate_results.get("status"), 0)
     dupe_health = 100 - dupe_penalty
 
-    # 4. Final Weighted Scoring
     trust_score = (
         (comp_health * weights["comp"]) +
         (valid_health * weights["valid"]) +
