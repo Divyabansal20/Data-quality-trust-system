@@ -1,52 +1,37 @@
 
-def calculate_trust_score(completeness_results,duplicate_results,validity_results, accuracy_results,consistency_results):
-
+def calculate_trust_score(completeness_results, duplicate_results, validity_results, accuracy_results, consistency_results):
     if not completeness_results:
-        return 0
+        return 0.0
     
-    penalty= {'Excellen':0,
-              'Warning':5,
-              'Critical':10
-              }
-    weights = {
-        "comp": 0.25,  
-        "valid": 0.25,   
-        "consist": 0.20, 
-        "acc": 0.15,     
-        "dupe": 0.15     
+    penalty_map = {
+        'Excellent': 0,
+        'Warning': 5,
+        'Critical': 15 
     }
     
-    # completeness
-    completeness_penalty=0
-    for cols, metric in completeness_results.items():
-        completeness_penalty+=penalty.get(metric['status'],0)
-    comp_health= 100- (completeness_penalty / len(completeness_results))
+    weights = {
+        "comp": 0.25,  "valid": 0.25, "consist": 0.20, "acc": 0.15, "dupe": 0.15 
+    }
+    
+    def get_health(results_dict):
+        if not results_dict:
+            return 100.0
+        # Handle both lists (consistency) and dicts (others)
+        items = results_dict.values() if isinstance(results_dict, dict) else results_dict
+        total_penalty = sum(penalty_map.get(item['status'], 0) for item in items)
+        return max(0, 100 - (total_penalty / len(items)))
 
-    # validity 
-    valid_penalty=0
-    for col, metrics in validity_results.items():
-        valid_penalty += penalty.get(metrics["status"], 0)
-    valid_health = 100 - (valid_penalty / len(validity_results)) 
-   
-    # accuracy
-    acc_penalty = 0
-    acc_total_cols = len(accuracy_results) if len(accuracy_results) > 0 else 1
-    for col, metrics in accuracy_results.items():
-        acc_penalty += penalty.get(metrics["status"], 0)
-    acc_health = 100 - (acc_penalty / acc_total_cols)
-
-    # consistency
-    consist_penalty = 0
-    consist_total_rules = len(consistency_results) if len(consistency_results) > 0 else 1
-    for issue in consistency_results:
-        consist_penalty += penalty.get(issue["status"], 0)
-    consist_health = 100 - (consist_penalty / consist_total_rules)
-
-    # uniqueness
-    dupe_penalty = penalty.get(duplicate_results["status"], 0)
+    # 3. Calculate health for each dimension
+    comp_health = get_health(completeness_results)
+    valid_health = get_health(validity_results)
+    acc_health = get_health(accuracy_results)
+    consist_health = get_health(consistency_results)
+    
+    # Uniqueness is a single dictionary, handled separately
+    dupe_penalty = penalty_map.get(duplicate_results.get("status"), 0)
     dupe_health = 100 - dupe_penalty
 
-    # weighted scoring
+    # 4. Final Weighted Scoring
     trust_score = (
         (comp_health * weights["comp"]) +
         (valid_health * weights["valid"]) +
@@ -56,4 +41,3 @@ def calculate_trust_score(completeness_results,duplicate_results,validity_result
     )
 
     return round(trust_score, 1)
-

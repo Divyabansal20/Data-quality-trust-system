@@ -1,43 +1,43 @@
 Transaction_ID,Customer_Name,Date,Product_Category,Amount,Store_Location
 T1001,John Doe,2024-01-01,Electronics,1200,New York
 T1002,Jane Smith,2024-01-02,Home,450,Los Angeles
-T1003,John Doe,2024-01-01,Electronics,1200,New York
+T1003,John Doe,2024-01-01,Electronics,12997600,New York shire
 T1004,Alice Brown,,Home,300,Chicago
-T1005,Bob White,2024-01-05,Electronics,9999999,New York
+T1005,Bob White,2024-01-05,Electronics,99999900009,New York
 T1006,Jane Smith,2024-01-02,Home,450,San Francisco
 T1007,,2024-01-07,Clothing,50,Miami
 T1008,Charlie Black,2024-01-08,Electronics,not_a_number,Chicago
-T1009,John Doe,2024-01-01,Electronics,1200,New York
+T1009,John Doe,2024-01-01,Electronics,12jghi00,New York
 T1010,Alice Brown,2024-01-10,Home,300,Chicago
 T1011,Eve Green,2024-01-11,Clothing,75,Miami
 T1012,Bob White,2024-01-12,Electronics,1500,New York
 T1013,Jane Smith,2024-01-02,Home,450,Los Angeles
-T1014,Frank Wright,2024-01-14,Home,200,
+T1014,Frank Wright,2024-01-14,Hommrnhiide,200,
 T1015,Alice Brown,2024-01-10,Home,300,Chicago
 T1016,John Doe,2024-01-01,Electronics,1200,New York
 T1017,Grace Hopper,2024-01-17,Electronics,2500,Seattle
 T1018,Bob White,2024-01-05,Electronics,1500,New York
 T1019,Charlie Black,2024-01-08,Clothing,50,Chicago
 T1020,Jane Smith,2024-01-02,Home,450,Los Angeles
-T1021,Eve Green,2024-01-11,Clothing,75,Miami
+T102221,Eve Green,2024-01-11,Clothing,75,Miami
 T1022,Frank Wright,2024-01-14,Home,200,Chicago
 T1023,Grace Hopper,2024-01-17,Electronics,2500,Seattle
 T1024,Hank Hill,2024-01-24,Home,120,Texas
 T1025,Hank Hill,2024-01-24,Garden,120,Texas
 T1026,John Doe,2024-01-01,Electronics,1200,New York
 T1027,Jane Smith,2024-01-02,Home,450,Los Angeles
-T1028,Alice Brown,2024-01-10,Home,300,Chicago
+T1028,Alice Brown,2024-01-10,Hommmeeee,300,Chicago
 T1029,Bob White,2024-01-05,Electronics,1500,New York
 T1030,Charlie Black,2024-01-08,Clothing,50,Chicago
 T1031,Eve Green,2024-01-11,Clothing,75,Miami
 T1032,Frank Wright,2024-01-14,Home,200,Chicago
-T1033,Grace Hopper,2024-01-17,Electronics,2500,Seattle
+T1033,Grace Hopper,2024-01-17,Electronics,250000,Seattle
 T1034,Hank Hill,2024-01-24,Home,120,Texas
 T1035,Ivy League,2024-01-35,Electronics,400,Boston
 T1036,Ivy League,2024-01-26,Electronics,400,Boston
 T1037,Jack Reacher,2024-01-27,Clothing,-500,Dallas
 T1038,Jack Reacher,2024-01-27,Clothing,50,Dallas
-T1039,John Doe,2024-01-01,Electronics,1200,New York
+T1039,John Doe,2024-01-01,Electronics,1200
 T1040,Jane Smith,2024-01-02,Home,450,Los Angeles
 T1041,Alice Brown,2024-01-10,Home,300,Chicago
 T1042,Bob White,2024-01-05,Electronics,1500,New York
@@ -49,3 +49,7 @@ T1047,Hank Hill,2024-01-24,Home,120,Texas
 T1048,Ivy League,2024-01-26,Electronics,400,Boston
 T1049,Jack Reacher,2024-01-27,Clothing,50,Dallas
 T1050,Kevin Hart,2024-01-30,Clothing,100,Phoenix
+T1051,Bob White,2024-01-12,Electronics,1500,New York
+T1051,Bob White,2024-01-12,Electronics,1500,New York
+T1052,Bob White,2024-01-12,Electronics,1500,New York
+T1012,Bob White,2024-01-12,Electronics,1500,New York
