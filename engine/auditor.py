@@ -113,11 +113,11 @@ def validity_check(df):
         else:
             valid_ratio = df[col].notnull().sum() / total_vals
 
-        if valid_ratio >= 0.98:
+        if valid_ratio >= 0.95: 
             status = "Excellent"
-        elif valid_ratio >= 0.90:
+        elif valid_ratio >= 0.70: 
             status = "Warning"
-        else:
+        else: 
             status = "Critical"
 
         validity_results[col] = {
@@ -175,6 +175,9 @@ def audit_consistency(df):
     for i in range(len(cols)):
         for j in range(i + 1, len(cols)):
             col_a, col_b = cols[i], cols[j]
+
+            if any(word in col_b.lower() for word in ['date', 'time', 'timestamp', 'year', 'month']):
+                continue # Skip this! It's okay for one ID to have multiple dates.
             # Check if col_a could be a  Key
             if df[col_a].nunique() / len(df) > 0.5:
                 mismatches = df.groupby(col_a)[col_b].nunique()

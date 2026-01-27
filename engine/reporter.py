@@ -18,17 +18,17 @@ def generate_risk_assessment(trust_score, comp, valid, acc, consist):
     invalid_cols = [c for c, m in valid.items() if m['status'] == 'Critical']
     
     if crit_cols:
-        actions.append(f"FIX: High missingness in {', '.join(crit_cols)}.")
+        actions.append(f"High missingness in {', '.join(crit_cols)}.")
     if invalid_cols:
-        actions.append(f"REFORMAT: Type mismatches detected in {', '.join(invalid_cols)}.")
+        actions.append(f"Type mismatches detected in {', '.join(invalid_cols)}.")
     
     # Check Outliers
     high_outliers = [c for c, m in acc.items() if m['status'] == 'Critical']
     if high_outliers:
-        actions.append(f"SCRUB: Excessive outliers in {', '.join(high_outliers)} may bias analysis.")
+        actions.append(f"Excessive outliers in {', '.join(high_outliers)} may bias analysis.")
 
     if any(i['status'] != 'Excellent' for i in consist if "rule" in i):
-        actions.append("RESOLVE: Logical pattern breaches found in Consistency report.")
+        actions.append("Logical pattern breaches found in Consistency report.")
 
     action_plan = " | ".join(actions) if actions else "No immediate corrective actions required."
     return risk_level, verdict, action_plan
@@ -63,7 +63,15 @@ def generate_pdf(trust_score, comp, dupe, valid, acc, consist, profile, dataset_
     pdf.cell(30, 8, "STATUS:", 0, 0)
     pdf.set_font("Arial", "", 11)
     pdf.cell(0, 8, risk_lvl, 0, 1)
-    pdf.multi_cell(0, 8, f"VERDICT: {verdict}", 0)
+
+    # pdf.multi_cell(0, 8, f"VERDICT: {verdict}", 0)
+
+    pdf.set_font("Arial", "B", 11)
+    pdf.write(8, "VERDICT: ") 
+    pdf.set_font("Arial", "", 11)
+    pdf.write(8, verdict) 
+    pdf.ln(10)
+
     pdf.set_font("Arial", "B", 10)
     pdf.cell(0, 8, "Recommended Action Plan:", 0, 1)
     pdf.set_font("Arial", "", 10)
