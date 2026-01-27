@@ -16,4 +16,4 @@ A professional-grade Data Quality (DQ) audit tool built with Python and Streamli
 - **Reporting:** FPDF
 
 ## 📊 Scoring Methodology
-The system uses a weighted base score ($Base = \sum (Health_i \times Weight_i)$) combined with a 15% exponential decay penalty for every "Critical" failure found.
+The system uses a weighted base score (Base =sum (Health/times Weight)) combined with a 15% exponential decay penalty for every "Critical" failure found.
