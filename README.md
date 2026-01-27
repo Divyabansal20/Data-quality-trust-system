@@ -3,7 +3,6 @@
 A professional-grade Data Quality (DQ) audit tool built with Python and Streamlit. This system evaluates datasets across five key dimensions to determine "Analytical Readiness."
 
 ## 🚀 Live Demo
-[Insert your Streamlit link here after deploying]
 
 ## ✨ Key Features
 - **Multi-Dimensional Auditing:** Checks for Completeness, Validity, Accuracy, Consistency, and Uniqueness.
